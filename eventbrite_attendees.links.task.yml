@@ -7,3 +7,8 @@ eventbrite_attendees.api_test:
   route_name: eventbrite_attendees.api_test_form
   title: Test
   base_route: eventbrite_attendees.settings_form
+
+eventbrite_attendees.sync:
+  route_name: eventbrite_attendees.user_sync_form
+  title: Sync
+  base_route: eventbrite_attendees.settings_form

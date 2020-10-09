@@ -26,15 +26,17 @@ class ApiTest extends FormBase {
    */
   public function buildForm(array $form, FormStateInterface $form_state) {
     $oauth_token = $this->config('eventbrite_attendees.settings')->get('oauth_token');
+    $savedEventId = $this->config('eventbrite_attendees.settings')->get('event_id');
 
     if (!$oauth_token) {
-      drupal_set_message('No OAuth token found. Please visit the settings page and provide your personal OAuth token.', 'error');
+      \Drupal::messenger()->addError('No OAuth token found. Please visit the settings page and provide your personal OAuth token.');
       return $form;
     }
 
     $form['event_id'] = [
       '#type' => 'textfield',
       '#title' => $this->t('Event ID'),
+        '#default_value' => $savedEventId ? $savedEventId : ''
     ];
 
     $form['attendees_query'] = [
