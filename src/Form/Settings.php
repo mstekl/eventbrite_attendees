@@ -33,16 +33,29 @@ class Settings extends ConfigFormBase {
     $oauth_token_desc = $this->t('Invalid token');
 
     if ( $oauth_token ){
-      $oauth_token_desc = $this->t('Valid token. This field will not show saved values.');
+      $oauth_token_desc = $this->t('Valid token. ');
     }
 
     $form['eventbrite_attendees_oauth_token'] = array(
-      '#type' => 'password',
-      '#title' => $this->t('Personal OAuth Token'),
+      '#type' => 'textfield',
+      '#title' => $this->t('Private API Token'),
       '#description' => $oauth_token_desc,
       '#maxlength' => 64,
       '#default_value' => $oauth_token ? $oauth_token : '',
     );
+
+
+    $event_id = $this->config('eventbrite_attendees.settings')->get('event_id');
+    $form['eventbrite_attendees_event_id'] = [
+        '#type'   => 'textfield',
+        '#title'  => $this->t('Event ID'),
+        '#maxlength' => 64,
+        '#default_value' => $event_id ? $event_id : ''
+
+    ];
+
+
+
 
     return parent::buildForm($form, $form_state);
   }
@@ -67,8 +80,14 @@ class Settings extends ConfigFormBase {
    */
   public function submitForm(array &$form, FormStateInterface $form_state) {
     $this->config('eventbrite_attendees.settings')
-      ->set('oauth_token', $form_state->getValue('eventbrite_attendees_oauth_token'))
-      ->save();
+      ->set('oauth_token', $form_state->getValue('eventbrite_attendees_oauth_token'));
+
+    $eventId = $form_state->getValue('eventbrite_attendees_event_id');
+    if(!empty($eventId)){
+        $this->config('eventbrite_attendees.settings')
+            ->set('event_id', $eventId);
+    }
+    $this->config('eventbrite_attendees.settings')->save();
 
     parent::submitForm($form, $form_state);
   }

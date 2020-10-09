@@ -18,3 +18,10 @@ eventbrite_attendees.api_test:
   parent: eventbrite_attendees.admin
   route_name: eventbrite_attendees.api_test_form
   menu_name: admin
+
+eventbrite_attendees.sync:
+  title: 'Sync Users'
+  description: 'Creates Drupal users for all attendees from configured event'
+  parent: eventbrite_attendees.admin
+  route_name: eventbrite_attendees.user_sync_form
+  menu_name: admin

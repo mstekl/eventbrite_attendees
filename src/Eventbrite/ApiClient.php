@@ -168,10 +168,9 @@ class ApiClient {
    * @return array
    *   Array of attendees data.
    */
-  public function getEventAttendees($event_id) {
-    $pages = $this->getPaginatedData("events/{$event_id}/attendees", $this->requestOptions([
-      'status' => 'attending'
-    ]));
+  public function getEventAttendees($event_id, $options = []) {
+//      $requestOptions = array_merge($options, [ 'status' => 'attending']);
+    $pages = $this->getPaginatedData("events/{$event_id}/attendees", $this->requestOptions($options));
 
     return array_merge(...array_column($pages, 'attendees'));
   }

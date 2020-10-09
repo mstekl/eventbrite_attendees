@@ -13,3 +13,21 @@ eventbrite_attendees.api_test_form:
     _title: 'Eventbrite Attendees Test API Queries'
   requirements:
     _permission: 'administer site configuration'
+
+
+eventbrite_attendees.user_sync_form:
+  path: '/admin/config/services/eventbrite_attendees/sync'
+  defaults:
+    _form: '\Drupal\eventbrite_attendees\Form\Sync'
+    _title: 'Creates Drupal user Eventbrite attendees'
+  requirements:
+    _permission: 'administer site configuration'
+
+
+eventbrite_attendees.webhook:
+  path: '/admin/config/services/eventbrite_attendees/webhook'
+  defaults:
+    _controller: '\Drupal\eventbrite_attendees\Controller\WebhookController::run'
+    _title: 'Run Webhook'
+  requirements:
+    _permission: 'access content'
